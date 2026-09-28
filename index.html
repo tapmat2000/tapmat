@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>tapmat. — beer mats that work</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#d9697c;--ink:#1d1d1b;--paper:#f6e9e4;--card:#f3d6d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--pink);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:28px 0}
+.logo{font-weight:500;font-size:28px;letter-spacing:-.02em;text-decoration:none;color:var(--ink)}
+.pill{background:var(--ink);color:var(--pink);padding:10px 20px;border-radius:99px;text-decoration:none;font-weight:500;font-size:15px}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;padding:56px 0 72px}
+h1{font-size:clamp(40px,7vw,80px);line-height:1;letter-spacing:-.035em;margin:0 0 24px;font-weight:500}
+.hero p{font-size:20px;max-width:480px;margin:0 0 32px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{border:2px solid var(--ink);padding:14px 26px;border-radius:99px;font:500 17px 'Space Grotesk',sans-serif;text-decoration:none;color:var(--ink);cursor:pointer;background:transparent}
+.btn.fill{background:var(--ink);color:var(--pink)}
+.waves{width:100%;max-width:280px;justify-self:center}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-bottom:72px}
+.step{background:var(--card);border-radius:24px;padding:28px}
+.step b{font-size:14px;letter-spacing:.08em}
+.step h3{margin:8px 0;font-size:22px;font-weight:500}
+.step p{margin:0}
+#join{background:var(--paper);border-radius:32px;padding:40px;margin-bottom:72px}
+#join h2{font-size:clamp(30px,5vw,48px);letter-spacing:-.03em;margin:0 0 24px;font-weight:500;line-height:1.05}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px}
+.tab{padding:18px;border-radius:20px;border:2px solid var(--ink);background:transparent;color:var(--ink);font:500 17px 'Space Grotesk',sans-serif;cursor:pointer;text-align:left}
+.tab small{display:block;font-weight:400;font-size:14px;opacity:.75}
+.tab[aria-selected=true]{background:var(--ink);color:var(--paper)}
+label{display:block;font-weight:500;font-size:15px;margin-bottom:16px}
+input,select,textarea{display:block;width:100%;margin-top:6px;padding:14px 16px;border:2px solid var(--ink);border-radius:14px;background:#fff;font:400 16px 'Space Grotesk',sans-serif;color:var(--ink)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hidden{display:none}
+.note{font-size:14px;margin-top:14px;opacity:.8}
+footer{padding:0 0 40px;font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media(max-width:720px){.hero,.steps,.row{grid-template-columns:1fr}.waves{max-width:160px;justify-self:start;grid-row:1}#join{padding:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="logo" href="#">tapmat.</a><a class="pill" href="#join">Get involved</a></nav>
+
+<section class="hero">
+<div>
+<h1>Beer mats people actually look at.</h1>
+<p>tapmat connects brands with the pubs and bars where people are relaxed, chatting and reaching for their pint.</p>
+<div class="btns">
+<a class="btn fill" href="#join" data-pick="advertiser">I want to advertise</a>
+<a class="btn" href="#join" data-pick="partner">I run a venue</a>
+</div>
+</div>
+<svg class="waves" viewBox="0 0 200 200" fill="none" stroke="#1d1d1b" stroke-width="14" stroke-linecap="round" aria-hidden="true">
+<path d="M52 78c14 16 14 44 0 60"/><path d="M78 62c22 24 22 76 0 92"/><path d="M104 46c30 36 30 108 0 124"/><path d="M130 30c38 50 38 140 0 190" transform="translate(0 -20) scale(1 .9) translate(0 20)"/>
+</svg>
+</section>
+
+<section class="steps">
+<div class="step"><b>01</b><h3>Brands book a spot</h3><p>Choose your area and get your message printed on mats.</p></div>
+<div class="step"><b>02</b><h3>Venues hold the mats</h3><p>Partner pubs and bars put them on tables and the bar.</p></div>
+<div class="step"><b>03</b><h3>Everyone wins</h3><p>Brands get seen, venues get rewarded, drinkers get a nice mat.</p></div>
+</section>
+
+<section id="join">
+<h2>Show your interest.</h2>
+<div class="tabs" role="tablist">
+<button class="tab" role="tab" id="t-advertiser" aria-selected="true" data-type="advertiser">Advertise with us<small>Get your brand on beer mats</small></button>
+<button class="tab" role="tab" id="t-partner" aria-selected="false" data-type="partner">Become a partner<small>Hold beer mats in your venue</small></button>
+</div>
+
+<div id="form">
+<div class="row">
+<label>Your name<input id="name" autocomplete="name"></label>
+<label>Email<input id="email" type="email" autocomplete="email"></label>
+</div>
+<div class="row">
+<label><span id="biz-l">Business name</span><input id="biz"></label>
+<label>Town / area<input id="area"></label>
+</div>
+<div id="f-advertiser">
+<label>Rough monthly budget
+<select id="budget"><option>Not sure yet</option><option>Under £250</option><option>£250 – £1,000</option><option>£1,000 – £5,000</option><option>£5,000+</option></select></label>
+</div>
+<div id="f-partner" class="hidden">
+<label>Roughly how many customers per week?
+<select id="footfall"><option>Under 200</option><option>200 – 500</option><option>500 – 1,500</option><option>1,500+</option></select></label>
+</div>
+<label>Anything else? (optional)<textarea id="msg" rows="3"></textarea></label>
+<button class="btn fill" id="send" type="button">Send my interest</button>
+<p class="note" id="status">This opens your email app with your details ready to send.</p>
+</div>
+</section>
+
+<footer><span>tapmat.</span><span>© 2026 tapmat. All rights reserved.</span></footer>
+</div>
+
+<script>
+var TO="info@tapmat.co.uk"; 
+var type="advertiser";
+function pick(t){
+  type=t;
+  ["advertiser","partner"].forEach(function(k){
+    document.getElementById("t-"+k).setAttribute("aria-selected",k===t);
+    document.getElementById("f-"+k).classList.toggle("hidden",k!==t);
+  });
+  document.getElementById("biz-l").textContent=t==="partner"?"Venue name":"Business name";
+}
+document.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){pick(b.dataset.type)}});
+document.querySelectorAll("[data-pick]").forEach(function(a){a.onclick=function(){pick(a.dataset.pick)}});
+document.getElementById("send").onclick=function(){
+  var v=function(id){return document.getElementById(id).value.trim()};
+  var st=document.getElementById("status");
+  if(!v("name")||!/\S+@\S+\.\S+/.test(v("email"))){st.textContent="Please add your name and a valid email.";return}
+  var extra=type==="advertiser"?"Budget: "+v("budget"):"Weekly customers: "+v("footfall");
+  var subject=(type==="advertiser"?"Advertiser":"Venue partner")+" interest: "+(v("biz")||v("name"));
+  var body=["Type: "+type,"Name: "+v("name"),"Email: "+v("email"),"Business: "+v("biz"),"Area: "+v("area"),extra,"","Message: "+v("msg")].join("\n");
+  window.location.href="mailto:"+TO+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+  st.textContent="Thanks! If your email app didn't open, email us directly at "+TO+".";
+};
+</script>
+</body>
+</html>
