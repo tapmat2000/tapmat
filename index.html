@@ -38,6 +38,11 @@ input,select,textarea{display:block;width:100%;margin-top:6px;padding:14px 16px;
 .hidden{display:none}
 .note{font-size:14px;margin-top:14px;opacity:.8}
 footer{padding:0 0 40px;font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.partners{padding-bottom:64px}
+.partners h2{font-size:15px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;text-align:center;margin:0 0 24px;opacity:.85}
+.partner-logo{display:flex;justify-content:center}
+.partner-logo img{height:44px;width:auto;display:block}
+@media(max-width:720px){.partner-logo img{height:34px}}
 @media(max-width:720px){.hero,.steps,.row{grid-template-columns:1fr}.waves{max-width:160px;justify-self:start;grid-row:1}#join{padding:24px}}
 </style>
 </head>
@@ -91,7 +96,7 @@ footer{padding:0 0 40px;font-size:14px;display:flex;justify-content:space-betwee
 </div>
 <label>Anything else? (optional)<textarea id="msg" rows="3"></textarea></label>
 <button class="btn fill" id="send" type="button">Send my interest</button>
-<p class="note" id="status">This opens your email app with your details ready to send.</p>
+<p class="note" id="status">We'll get back to you by email.</p>
 </div>
 </section>
 
@@ -111,15 +116,23 @@ function pick(t){
 }
 document.querySelectorAll(".tab").forEach(function(b){b.onclick=function(){pick(b.dataset.type)}});
 document.querySelectorAll("[data-pick]").forEach(function(a){a.onclick=function(){pick(a.dataset.pick)}});
+var ENDPOINT="https://formspree.io/f/xqpaonrr";
 document.getElementById("send").onclick=function(){
   var v=function(id){return document.getElementById(id).value.trim()};
-  var st=document.getElementById("status");
+  var st=document.getElementById("status"),btn=this;
   if(!v("name")||!/\S+@\S+\.\S+/.test(v("email"))){st.textContent="Please add your name and a valid email.";return}
-  var extra=type==="advertiser"?"Budget: "+v("budget"):"Weekly customers: "+v("footfall");
-  var subject=(type==="advertiser"?"Advertiser":"Venue partner")+" interest: "+(v("biz")||v("name"));
-  var body=["Type: "+type,"Name: "+v("name"),"Email: "+v("email"),"Business: "+v("biz"),"Area: "+v("area"),extra,"","Message: "+v("msg")].join("\n");
-  window.location.href="mailto:"+TO+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
-  st.textContent="Thanks! If your email app didn't open, email us directly at "+TO+".";
+  var extra=type==="advertiser"?v("budget"):v("footfall");
+  var data={_subject:(type==="advertiser"?"Advertiser":"Venue partner")+" interest: "+(v("biz")||v("name")),type:type,name:v("name"),email:v("email"),business:v("biz"),area:v("area"),details:extra,message:v("msg")};
+  if(ENDPOINT.indexOf("YOUR_FORM_ID")>-1){
+    var body=Object.keys(data).map(function(k){return k+": "+data[k]}).join("\n");
+    window.location.href="mailto:"+TO+"?subject="+encodeURIComponent(data._subject)+"&body="+encodeURIComponent(body);
+    return;
+  }
+  btn.disabled=true;btn.textContent="Sending...";
+  fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)})
+  .then(function(r){if(!r.ok)throw 0;st.textContent="Thanks! We've got your details and will be in touch soon.";btn.textContent="Sent";
+    document.querySelectorAll("#join input,#join textarea").forEach(function(e){e.value=""})})
+  .catch(function(){btn.disabled=false;btn.textContent="Send my interest";st.textContent="Sorry, something went wrong. Please email us at "+TO+".";});
 };
 </script>
 </body>
